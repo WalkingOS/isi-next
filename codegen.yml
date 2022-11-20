@@ -1,0 +1,12 @@
+overwrite: true
+schema: "http://localhost:1337/graphql"
+documents: "**/queries.js"
+generates:
+  src/queries/gen-services.tsx:
+    config:
+      namingConvention:
+        enumValues: "change-case#upperCase"
+    plugins:
+      - "typescript"
+      - "typescript-operations"
+      - "typescript-react-apollo"
