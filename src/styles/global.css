@@ -1,21 +1,9 @@
+@import url("https://fonts.googleapis.com/css2?family=Libre+Franklin:ital,wght@0,300;0,400;0,700;1,400&display=swap");
+
 @tailwind base;
-
-a {
-  @apply text-blue-700;
-}
-
-a:hover {
-  @apply border-b-2 border-blue-700;
-}
-
 @tailwind components;
-
 @tailwind utilities;
 
-.content p {
-  @apply my-6;
-}
-
-.content ul {
-  @apply my-6;
+* {
+  font-family: "Libre Franklin";
 }

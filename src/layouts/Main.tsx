@@ -4,7 +4,7 @@ import { NextSeo } from 'next-seo';
 import type { ReactNode } from 'react';
 
 import { AppConfig } from '@/utils/AppConfig';
-import Menu from '@/components/menu';
+import Menu from '@/components/Menu';
 
 type IMainProps = {
   meta: {
@@ -63,19 +63,52 @@ return (
           site_name: AppConfig.site_name,
         }}
     />
-    <div className="w-full px-1 text-gray-700 antialiased">
-
-      <div className="mx-auto max-w-screen-md">
-
-        <Menu />
-        <div className="content py-5 text-xl">{props.children}</div>
-
-        <div className="border-t border-gray-300 py-8 text-center text-sm">
-        © Copyright {new Date().getFullYear()} {AppConfig.title}.
-    </div>
-
+    <Menu />
+    <div className="w-full antialiased">
+      <div className="mx-auto px-4 md:px-12 lg:px-24">
+        <div className="content text-xl">{props.children}</div>
       </div>
     </div>
+    <footer className="px-4 lg:px-24 bg-[#292727] text-white mt-12 text-sm rounded-tr-[2em]">
+      <div className='pb-8 pt-12 flex justify-between'>
+        <span className='text-[32px] self-center'>
+          ISI NOOR
+        </span>
+
+        <section className="w-[260px]">
+          <h6 className='mb-2'>Öffnungszeiten</h6>
+          <ul >
+            <li className='flex justify-between'>
+              <span>
+                Mo-Fr:
+              </span>
+              <span>
+                <time>10:00</time> - <time>19:00</time>
+              </span>
+            </li>
+            <li className='flex justify-between'>
+              <span>
+                Sa:
+              </span>
+              <span>
+                <time>09:00</time> - <time>15:00</time>
+              </span>
+            </li>
+          </ul>
+        </section>
+      </div>
+      <div className=''>
+        <div className='flex justify-between border-t border-white py-8'>
+          © Copyright {new Date().getFullYear()} {AppConfig.title}.
+          <ul className="flex">
+            <li className="self-center border-r border-white px-2"><a href="/impressum">Impressum</a></li>
+            <li className="self-center border-r border-white px-2"><a href="/datenschutz">Datenschutz</a></li>
+            <li className="self-center pl-2"><a href="/kontakt">Kontakt</a></li>
+          </ul>
+        </div>
+ 
+      </div>
+    </footer>
   </>)
 };
 
