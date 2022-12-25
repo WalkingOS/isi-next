@@ -9,8 +9,8 @@ import Link from 'next/link';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 
 import { Detail } from '@/layouts/Detail';
-import { ImageOverlay } from "@/components/ImageOverlay";
-import { Contact } from "@/components/Contact";
+import { ImageOverlay } from "@/components/imageoverlay";
+import { Contact } from "@/components/contact";
 // import { GET_ALL_BEAUTY } from "../queries/queries.js"
 
 const Services = ({services, category}: any) => (

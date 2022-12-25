@@ -3,9 +3,9 @@ import { sanityClient, urlFor } from "../../sanity.js";
 
 import { GET_SERVICES, GET_CATEGORY } from "../queries/queries";
 import MuiButton from '@mui/material/Button';
-import { Card } from '@/components/Card';
-import { Advantage } from '@/components/Advantage';
-import { ImageOverlay } from '@/components/ImageOverlay';
+import { Card } from '@/components/card';
+import { Advantage } from '@/components/advantage';
+import { ImageOverlay } from '@/components/imageoverlay';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
 import PhoneAndroidOutlinedIcon from '@mui/icons-material/PhoneAndroidOutlined';
@@ -15,7 +15,7 @@ import Image from 'next/image';
 
 // Import Swiper styles
 import 'swiper/css';
-import { Contact } from '@/components/Contact';
+import { Contact } from '@/components/contact';
 import { useEffect, useRef, useState } from 'react';
 
 // import MuxPlayer from '@mux/mux-player-react'

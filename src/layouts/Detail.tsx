@@ -4,7 +4,7 @@ import { NextSeo } from 'next-seo';
 import type { ReactNode } from 'react';
 
 import { AppConfig } from '@/utils/AppConfig';
-import { Footer } from '@/components/Footer';
+import { Footer } from '@/components/footer';
 
 type IMainProps = {
   meta: {
