@@ -1,0 +1,26 @@
+.Mui-selected,
+.Mui-focused {
+  background-color: #b07c8300 !important;
+}
+
+.MuiTreeItem-label {
+  font-weight: bold !important;
+}
+
+.MuiTreeItem-label {
+  font-size: 1.2rem !important;
+}
+
+.MuiTreeItem-content {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row-reverse;
+}
+
+.MuiTreeItem-label {
+  width: fit-content;
+}
+
+.Mui-expanded:hover {
+  background: #0000000a !important;
+}

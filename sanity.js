@@ -2,6 +2,9 @@ import {
   createClient
 } from "next-sanity";
 
+import { getFileAsset } from '@sanity/asset-utils'
+
+
 import imageUrlBuilder from '@sanity/image-url'
 
 const config = {
@@ -14,7 +17,7 @@ const config = {
    **/
   projectId: "rm9qzj55",
   dataset: "production",
-  apiVersion: "2022-03-25",
+  apiVersion: "2022-10-10",
   useCdn: "production",
 
   /**
@@ -32,7 +35,7 @@ const config = {
 export const sanityClient = createClient(config)
 
 const builder = imageUrlBuilder(sanityClient)
-
+ 
 export function urlFor(source) {
   return builder.image(source)
 }

@@ -1,122 +1,229 @@
-/* import Link from 'next/link';
-
-export default function Menu() {
-  return (
-    <div className="mt-5 border-b border-gray-300">
-      <ul className="flex flex-wrap text-xl">
-        <ul>
-          <li className="mr-6">
-            <Link
-              href="/beauty/"
-              className="border-none text-gray-700 hover:text-gray-900"
-            >
-              Beauty
-            </Link>
-          </li>
-          <li className="mr-6">
-            <Link
-              href="/hair/"
-              className="border-none text-gray-700 hover:text-gray-900"
-            >
-              Hair
-            </Link>
-          </li>
-          <li className="mr-6">
-            <Link
-              href="/esthetics/"
-              className="border-none text-gray-700 hover:text-gray-900"
-            >
-              Esthetics
-            </Link>
-          </li>
-        </ul>
-        <li className="mr-6">
-          <Link
-            href="/ueber-uns/"
-            className="border-none text-gray-700 hover:text-gray-900"
-          >
-            Über Uns
-          </Link>
-        </li>
-      </ul>
-    </div>
-  )
-}*/
-
 import Link from 'next/link';
 import TreeView from '@mui/lab/TreeView';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import ChevronDownIcon from '@mui/icons-material/ChevronRight';
+import MenuRoundedIcon from '@mui/icons-material/MenuRounded';
+import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
+
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import TreeItem from '@mui/lab/TreeItem';
+import { useEffect, useState } from 'react';
+// import { GetStaticProps } from 'next';
 
-export function FileSystemNavigator() {
-  return (
-    <TreeView
-      aria-label="file system navigator"
-      defaultCollapseIcon={<ExpandMoreIcon />}
-      defaultExpandIcon={<ChevronDownIcon />}
-      sx={{ flexGrow: 1, overflowY: 'auto' }}
-    >
-      <TreeItem nodeId="1" label="Applications">
-        <TreeItem nodeId="2" label="Calendar" />
-      </TreeItem>
-      <TreeItem nodeId="5" label="Documents">
-        <TreeItem nodeId="10" label="OSS" />
-        <TreeItem nodeId="6" label="MUI">
-          <TreeItem nodeId="8" label="index.js" />
-        </TreeItem>
-      </TreeItem>
-    </TreeView>
-  );
+// import {
+//   createClient
+// } from "next-sanity";
+
+interface Item {
+  title: string;
+  slug?: string;
+  items?: Item[];
 }
 
-
-export default function Menu() {
-  const collapseItems = [
-    {
-      title: "service",
-      items: [
-        {
-          title: "beauty",
-          items: [
-            "b1", "b2", "b3"
-          ]
-        },
-        {
-          title: "Hair",
-          items: [
-            "b1", "b2", "b3"
-          ]
-        },
-        {
-          title: "Esthetics",
-          items: [
-            "b1", "b2", "b3"
-          ]
+export const RenderItems = ({items}: {items: Item[]}) => {
+  return (
+    <div className='flex gap-5 flex-col'>
+      {items.map((item) => {
+        if (item.items && item.items?.length) {
+          return (
+            <>
+            
+            <TreeView
+              className="text-white"
+              aria-label=""
+              defaultCollapseIcon={<KeyboardArrowUpIcon />}
+              defaultExpandIcon={<ExpandMoreIcon />}
+              sx={{ flexGrow: 1, overflowY: 'auto' }}
+            >
+              <TreeItem nodeId={item.title} label={item.title}>
+                {item.items?.map((it) => {
+                  return (
+                    <>
+                      <TreeItem className="my-4" nodeId={it.title} label={it.title}>
+                        <ul>
+                          {it.items?.map((i) => {
+                            return (
+                              <>
+                                <li>
+                                  <a className="py-1 pl-4 block hover:bg-[#0000000a]" href={i.slug}>{i.title}</a>
+                                </li>
+                              </>
+                            );
+                          })}
+                        </ul>
+                      </TreeItem>
+                    </>
+                  );
+                })}
+              </TreeItem>
+            </TreeView>
+            </>
+          );
+        } else {
+          return (
+            <>
+              <a  className="px-3 text-white font-bold text-[1.2rem] hover:bg-[#0000000a]" href={item.title}>{item.title}</a>
+            </>
+          );
         }
-      ]
-    },
-    {
-      title: "Preise",
-    },
-    
-  ];
+      })}
+    </div>
+  );
+};
+
+    const collapseItems:Item[] = [
+      {
+        title: "Behandlungen",
+
+        items: [
+          {
+            title: "beauty",
+            items: [
+              {
+                title: "aaa",
+                slug: "test"
+              },
+              {
+                title: "bbb",
+                slug: "test"
+              }
+            ]
+          },
+          {
+            title: "Hair",
+            items: [
+              {
+                title: "aaa",
+                slug: "test"
+              },
+              {
+                title: "bbb",
+                slug: "test"
+              }
+            ]
+          },
+          {
+            title: "Esthetics",
+            items: [
+              {
+                title: "ccc",
+                slug: "test"
+              },
+              {
+                title: "ddd",
+                slug: "test"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        title: "Preise",
+      },
+      {
+        title: "Preise",
+      },
+      {
+        title: "Preise",
+      },
+      {
+        title: "Preise",
+      },
+    ];
+
+export const Menu= () => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const [navVisible, setNavVisible] = useState(true);
+  const [prevScrollPos, setPrevScrollPos] = useState(0);
+  
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'auto';
+    }
+
+    return () => {
+      document.body.style.overflow = 'auto';
+    };
+  }, [isOpen]);
+
+  useEffect(() => {
+
+    const handleScroll = () => {
+      const scrollY = window.scrollY || window.pageYOffset;
+      const scrollDirection = prevScrollPos > scrollY ? 'up' : 'down';
+
+      // const cta = window.document.querySelector("#ctaButton");
+      // cta.offsetTop - cta.clientHeight)
+      if ((scrollY > 400)) {
+        setNavVisible(false);
+      } 
+  
+      if (scrollDirection === "up") {
+        setNavVisible(true);
+      }
+      
+      if ((scrollY < 400)) {
+        setNavVisible(true);
+      } 
+  
+      setPrevScrollPos(scrollY);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [prevScrollPos]);
 
   return (
-    <nav className="mx-auto px-4 md:px-12  fixed px-3 py-3 shadow-lg z-40 w-screen max-w-full flex justify-between">
-      <Link href="/">ISI NOOR</Link>
-        {/*<FileSystemNavigator></FileSystemNavigator>*/}
-      <Burger />
+    <nav className={`ease-in duration-300 ${navVisible ? '' : 'opacity-0'}`}>
+      <div className="bg-isi bg-opacity-50 drop-shadow-md z-[300] mx-auto px-4 md:px-12 fixed top-0 px-3 py-3 z-40 w-screen max-w-full flex justify-between">
+        <Link className='text-white' href="/">ISI NOOR</Link>
+        <button className="relative" onClick={() => setIsOpen(!isOpen)}>
+           <MenuRoundedIcon className={`text-white ease-in-out duration-300 ${isOpen ? 'opacity-0'  : 'opacity-100'}`}/>
+           <CloseRoundedIcon className={`absolute left-0 md:-left-4 text-white ease-in-out duration-300 ${!isOpen ? 'opacity-0'  : 'opacity-100'}`}/>
+        </button>
+      </div>
+      <div className={`overflow-auto fixed bg-isi-light z-[30] pt-[10em] px-8 md:px-10 h-[100vh] w-[100vw] md:w-[50vw] left-0 translate-x-[100vw] md:translate-x-[200%] ease-in-out duration-300 bg-opacity-50 backdrop-blur-lg drop-shadow-md opacity-0 ${isOpen ? 'opacity-100 translate-x-[0vw] md:translate-x-[100%]' : ''}`}>
+        <RenderItems items={collapseItems} />
+      </div>
+      {
+        isOpen && <div onClick={() => setIsOpen(false)} className={`ease-in duration-300 opacity-0 bg-opacity-10 backdrop-blur-sm drop-shadow-md overflow-auto fixed bg-isi-dark bg-opacity-10 h-[100vh] w-[100vw] top-0 left-0 right-0 bottom-0 ${isOpen ? 'opacity-100 z-10' : ''}`}></div>
+      }
     </nav>
+
   )
 }
 
-const Burger = () => {
-  return (
-    <>
-      <button>
-        X
-      </button>
-    </>
-  )
-}
+/**
+ * 
+ * 
+export const getStaticProps: GetStaticProps = async () => {
+  const config = {
+
+     projectId: "rm9qzj55",
+     dataset: "production",
+     apiVersion: "2022-10-10",
+     useCdn: "production",
+   
+   }
+   
+   // Set up the client for fetching data in the getProps page functions
+   const sanityClient = createClient(config as any)
+ 
+ 
+   const services = await sanityClient.fetch('*[_type == "service"');
+ 
+ 
+   // Return the services as a prop for the component
+   return {
+     props: {
+       services,
+     },
+   }
+ }
+ 
+ * 
+ */

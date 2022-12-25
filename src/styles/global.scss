@@ -1,4 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Libre+Franklin:ital,wght@0,300;0,400;0,700;1,400&display=swap");
+@import '../components/Menu';
+
 
 @tailwind base;
 @tailwind components;
@@ -6,4 +8,9 @@
 
 * {
   font-family: "Libre Franklin";
+}
+
+html,
+Canvas {
+  background-color: #f1f1f1;
 }

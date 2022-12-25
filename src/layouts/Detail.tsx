@@ -4,7 +4,6 @@ import { NextSeo } from 'next-seo';
 import type { ReactNode } from 'react';
 
 import { AppConfig } from '@/utils/AppConfig';
-import {Menu} from '@/components/Menu';
 import { Footer } from '@/components/Footer';
 
 type IMainProps = {
@@ -16,7 +15,7 @@ type IMainProps = {
   children: ReactNode;
 };
 
-const Main = (props: IMainProps) => {
+const Detail = (props: IMainProps) => {
   const router = useRouter();
 return (
   <>
@@ -64,9 +63,8 @@ return (
           site_name: AppConfig.site_name,
         }}
     />
-    <Menu />
     <div className="w-full antialiased">
-      <div className="mx-auto px-4 md:px-12 lg:px-24">
+      <div className="">
         <div className="content text-xl">{props.children}</div>
       </div>
     </div>
@@ -74,4 +72,4 @@ return (
   </>)
 };
 
-export { Main };
+export { Detail };
