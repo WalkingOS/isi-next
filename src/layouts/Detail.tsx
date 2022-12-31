@@ -5,6 +5,7 @@ import type { ReactNode } from 'react';
 
 import { AppConfig } from '@/utils/AppConfig';
 import { Footer } from '@/components/footer';
+import {Menu} from '@/components/menu';
 
 type IMainProps = {
   meta: {
