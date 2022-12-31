@@ -4,12 +4,12 @@ export const Footer = ({appconfig}) => {
   return (
     // rounded-tr-[2em]
     <footer className="isi-footer relative px-4 lg:px-24 bg-black text-white text-sm">
-      <div className='pb-8 pt-12 flex justify-between'>
+      <div className='flex flex-col sm:flex-row pb-8 pt-12 justify-between '>
         <span className='text-[32px] self-center'>
           ISI NOOR
         </span>
 
-        <section className="w-[260px]">
+        <section className="w-[auto] md:w-[260px]">
           <h6 className='mb-2'>Öffnungszeiten</h6>
           <ul >
             <li className='flex justify-between'>
@@ -32,9 +32,9 @@ export const Footer = ({appconfig}) => {
         </section>
       </div>
       <div className=''>
-        <div className='flex justify-between border-t border-white py-8'>
+        <div className='flex flex-col sm:flex-row items-center justify-between border-t border-white py-8'>
           © Copyright {new Date().getFullYear()} {appconfig}.
-          <ul className="flex">
+          <ul className="flex flex-wrap">
             <li className="self-center border-r border-white px-2"><a href="/impressum">Impressum</a></li>
             <li className="self-center border-r border-white px-2"><a href="/datenschutz">Datenschutz</a></li>
             <li className="self-center pl-2"><a href="/kontakt">Kontakt</a></li>

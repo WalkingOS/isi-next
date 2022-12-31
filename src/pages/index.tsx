@@ -89,7 +89,7 @@ const Index = ({ category, hero}) => {
 
             <ul className="flex w-full flex-wrap">
               {
-                category.map((i) => 
+                category.map((__, i:number) => 
                   <li key={i} className="w-1/2 mb-5">
                     <Advantage 
                       title="testt"

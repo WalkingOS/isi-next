@@ -63,6 +63,7 @@ return (
           site_name: AppConfig.site_name,
         }}
     />
+    <Menu />
     <div className="w-full antialiased">
       <div className="">
         <div className="content text-xl">{props.children}</div>
