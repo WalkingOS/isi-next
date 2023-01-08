@@ -13,3 +13,19 @@ html,
 Canvas {
   background-color: #f1f1f1;
 }
+
+.container {
+  @apply w-full max-w-[100rem] mx-auto antialiased px-4 md:px-12 lg:px-24;
+}
+
+input,
+textarea,
+button,
+select,
+a {
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+
+.content {
+  min-height: 70vh;
+}

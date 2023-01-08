@@ -20,7 +20,7 @@ import { useEffect, useRef, useState } from 'react';
 
 // import MuxPlayer from '@mux/mux-player-react'
 
-const Index = ({ category, hero}) => {
+const Index = ({ category, hero, advantage}) => {
 
   const [domLoaded, setDomLoaded] = useState(false);
   const ref = useRef<null | HTMLDivElement>(null);
@@ -76,7 +76,7 @@ const Index = ({ category, hero}) => {
           <div className='relative block md:w-1/2'>
             <div className='block relative w-full h-0 pb-[80%]'>
               <Image
-                src={urlFor(hero.mainImage).url()}
+                src={urlFor(advantage.mainImage).url()}
                 alt=""
                 layout="fill"
                 objectFit="cover"
@@ -85,18 +85,20 @@ const Index = ({ category, hero}) => {
             </div>
           </div>
           <div className='md:w-1/2'>
-            <h2 className='mb-6 lg:mb-18 text-center md:text-left font-bold'>Vorteile bei uns.</h2>
+            <h2 className='mb-6 lg:mb-18 text-center md:text-left font-bold'>{advantage.title}</h2>
 
             <ul className="flex w-full flex-wrap">
               {
-                category.map((__, i:number) => 
-                  <li key={i} className="w-1/2 mb-5">
-                    <Advantage 
-                      title="testt"
-                      subtitle="testtt"
-                      number={i + 1}
-                    />
-                  </li>
+                advantage.advantages.map((item, i:number) =>
+                  i < advantage.amount && (
+                    <li key={i} className="w-1/2 pt-0 pl-0 p-4">
+                      <Advantage 
+                        title={item.title}
+                        description={item.description}
+                        number={i + 1}
+                      />
+                    </li>
+                  )
                 )
               }
             </ul>
@@ -108,7 +110,7 @@ const Index = ({ category, hero}) => {
           <Contact className='md:rounded-xl'/>
       </section>
 
-      <section className='-mx-4 md:-mx-12 lg:-mx-24 mb-16'>
+      <section className='-mx-4 md:-mx-12 lg:-mx-24 mb-16 2xl:mx-0'>
         <h2 className='mb-6 lg:mb-18 text-center font-bold'>Zufriedene Kunden.</h2>
         {domLoaded && (<Swiper
           slidesPerView={1.5}
@@ -119,6 +121,10 @@ const Index = ({ category, hero}) => {
             "768": {
               slidesPerView: 3.5,
               spaceBetween: 10,
+            },
+            "1536": {
+              slidesPerView: 4,
+              spaceBetween: 12,
             },
           }}
           // onSlideChange={() => console.log('slide change')}
@@ -209,14 +215,18 @@ export const getStaticProps = async () => {
   const property = await sanityClient.fetch(GET_SERVICES);
   const category = await sanityClient.fetch(GET_CATEGORY);
   const GET_HERO = /* groq */ `*[_type == "hero"][0]`;
+  const GET_ADVANTAGE = /* groq */ `*[_type == "advantage"][0]`;
+
   
   const hero = await sanityClient.fetch(GET_HERO);
+  const advantage = await sanityClient.fetch(GET_ADVANTAGE);
 
   return {
     props: {
       property,
       category,
       hero,
+      advantage
     }
   }
 }

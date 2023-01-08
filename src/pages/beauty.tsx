@@ -7,10 +7,12 @@ import Link from 'next/link';
 // import { GET_POST } from "./../queries/queries.js";
 // import { sanityClient } from "./../../sanity.js";
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 
 import { Detail } from '@/layouts/Detail';
 import { ImageOverlay } from "@/components/imageoverlay";
 import { Contact } from "@/components/contact";
+
 // import { GET_ALL_BEAUTY } from "../queries/queries.js"
 
 const Services = ({services, category}: any) => (
@@ -28,11 +30,24 @@ const Services = ({services, category}: any) => (
         <ImageOverlay src={urlFor(category[0].mainImage).url()} /> 
       </div>
     </div>
-    <div className="bg-white pb-8 mx-auto px-4 md:px-12 lg:px-24 min-h-[16em] text-white text-sm text-black rounded-tr-[2em]">
+    <div className="bg-white pb-8 min-h-[16em] text-white text-sm text-black rounded-tr-[2em]">
+      <div className="container pt-6">
+
+      <Breadcrumbs className="" aria-label="breadcrumb" separator={<NavigateNextIcon fontSize="small" />}>
+        <Link href="/">
+          Start
+        </Link>
+        <span className="font-bold">
+          {category[0].title}
+        </span>
+      </Breadcrumbs>
 
       <h2 className="mb-12 pt-8 leading-none text-[24px] text-center font-bold">
         {category[0].descriptionTitle}
       </h2>
+      <p className="mb-6">
+        {category[0].description}
+      </p>
       <ul>
         {services.map((service: any) => {
           return (
@@ -50,10 +65,13 @@ const Services = ({services, category}: any) => (
           );
         })}
       </ul>
-    </div>
-    <section className="bg-white pb-6">
-      <Contact />
+      </div>
+
+
+    <section className="container bg-white mt-10 pb-6">
+      <Contact className="rounded-lg" />
     </section>
+    </div>
   </Detail>
 );
 

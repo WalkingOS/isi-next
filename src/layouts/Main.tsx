@@ -65,10 +65,8 @@ return (
         }}
     />
     <Menu />
-    <div className="w-full antialiased">
-      <div className="mx-auto px-4 md:px-12 lg:px-24">
-        <div className="content text-xl">{props.children}</div>
-      </div>
+    <div className="container">
+      <div className="content text-xl">{props.children}</div>
     </div>
     <Footer appconfig={AppConfig.title} />
   </>)

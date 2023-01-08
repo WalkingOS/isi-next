@@ -3,7 +3,8 @@
 export const Footer = ({appconfig}) => {
   return (
     // rounded-tr-[2em]
-    <footer className="isi-footer relative px-4 lg:px-24 bg-black text-white text-sm">
+    <footer className="isi-footer relative bg-black text-white text-sm">
+      <div className="container">
       <div className='flex flex-col sm:flex-row pb-8 pt-12 justify-between '>
         <span className='text-[32px] self-center'>
           ISI NOOR
@@ -42,6 +43,8 @@ export const Footer = ({appconfig}) => {
         </div>
  
       </div>
+      </div>
+
     </footer>
   )
 }
