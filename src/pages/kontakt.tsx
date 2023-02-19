@@ -1,7 +1,7 @@
 import { Main } from '@/layouts/Main';
 import { fetchMenu } from '@/utils/FetchMenu';
 
-const About = ({beauty, hair, esthetics}) => (
+const ContactUs = ({beauty, hair, esthetics}) => (
   <Main meta={{title: 'title', description: 'description'}} beautyItems={beauty} hairItems={hair} estheticsItems={esthetics}>
   <p>
       Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ratione fuga
@@ -18,7 +18,7 @@ const About = ({beauty, hair, esthetics}) => (
   </Main>
 );
 
-export default About;
+export default ContactUs;
 
 export const getStaticProps = async () => {
   return fetchMenu()

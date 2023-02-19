@@ -25,18 +25,19 @@ export default function BeautyService({beauty}) {
           </h1>
       </div>
 
-      <div className="block w-full h-[68vh] fixed z-[-3]">
-      <ImageOverlay src={urlFor(beauty.mainImage).url()} /> 
-{console.log(beauty)
-}
-      </div>
+      {beauty.mainImage && <div className="block w-full h-[68vh] fixed z-[-3]">
+      <ImageOverlay src={urlFor(beauty.mainImage).url()} />
+      </div>}
     </div>
     <div className="bg-white pb-8 min-h-[16em] text-white text-sm text-black rounded-tr-[2em]">
       <div className="container pt-6">
 
       <Breadcrumbs className="" aria-label="breadcrumb" separator={<NavigateNextIcon fontSize="small" />}>
-        <Link href="/">
+        <Link className="hover:text-isi" href="/">
           Start
+        </Link>
+        <Link className="hover:text-isi" href="/beauty">
+          Beauty
         </Link>
         <span className="font-bold">
           {beauty.title}
@@ -52,8 +53,8 @@ export default function BeautyService({beauty}) {
 
       <div>
         {
-          beauty.body.map(item => 
-            item.children.map(it => (
+          beauty.body?.map(item => 
+            item.children?.map(it => (
               it.text
             ))
           )

@@ -4,7 +4,7 @@ import { NextSeo } from 'next-seo';
 import type { ReactNode } from 'react';
 
 import { AppConfig } from '@/utils/AppConfig';
-import {Menu} from '@/components/menu';
+import {Menu, IMenuItem} from '@/components/menu';
 import { Footer } from '@/components/footer';
 
 type IMainProps = {
@@ -14,10 +14,14 @@ type IMainProps = {
     canonical?: string;
   };
   children: ReactNode;
+  beautyItems: IMenuItem[];
+  hairItems: IMenuItem[];
+  estheticsItems: IMenuItem[]
 };
 
-const Main = (props: IMainProps) => {
+const Main = ( props: IMainProps) => {
   const router = useRouter();
+  
 return (
   <>
     <Head>
@@ -64,7 +68,7 @@ return (
           site_name: AppConfig.site_name,
         }}
     />
-    <Menu />
+    <Menu beautyItems={props.beautyItems} hairItems={props.hairItems} estheticsItems={props.estheticsItems} />
     <div className="container">
       <div className="content text-xl">{props.children}</div>
     </div>

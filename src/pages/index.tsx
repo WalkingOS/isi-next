@@ -20,7 +20,7 @@ import { useEffect, useRef, useState } from 'react';
 
 // import MuxPlayer from '@mux/mux-player-react'
 
-const Index = ({ category, hero, advantage}) => {
+const Index = ({beauty, hair, esthetics, category, hero, advantage}) => {
 
   const [domLoaded, setDomLoaded] = useState(false);
   const ref = useRef<null | HTMLDivElement>(null);
@@ -28,13 +28,13 @@ const Index = ({ category, hero, advantage}) => {
   const handleClick = () => {
     ref.current?.scrollIntoView({behavior: 'smooth'});
   };
-
+  
   useEffect(() => {
     setDomLoaded(true);
   }, []);
   
   return (  
-    <Main meta={{title: 'title', description: 'description'}}>
+    <Main meta={{title: 'title', description: 'description'}} beautyItems={beauty} hairItems={hair} estheticsItems={esthetics}>
       <div className="relative w-full h-screen mb-12">
         <div className='absolute top-1/4 max-w-[520px]'>
           <h1 className='mb-2 relative leading-none text-white text-[64px] lg:text-[124px] font-bold after:absolute after:content-[""] after:bg-isi after:w-1/2 lg:after:w-[60%] after:h-[7px] after:left-[-50px] lg:after:left-[-100px] lg:after:top-[105px] after:top-[55px]'>
@@ -127,8 +127,6 @@ const Index = ({ category, hero, advantage}) => {
               spaceBetween: 12,
             },
           }}
-          // onSlideChange={() => console.log('slide change')}
-          // onSwiper={(swiper) => console.log(swiper)}
         >
           <SwiperSlide>
             <div className='bg-white-100 px-8 pt-2 pb-5 relative block w-full min-h-[80px] rounded-xl shadow-lg'>
@@ -217,12 +215,30 @@ export const getStaticProps = async () => {
   const GET_HERO = /* groq */ `*[_type == "hero"][0]`;
   const GET_ADVANTAGE = /* groq */ `*[_type == "advantage"][0]`;
 
+  const beauty = await sanityClient.fetch(`*[_type == "service" && "Beauty" in categories[]->title]{
+    title,
+    "slug": slug.current
+  }`);
+
+  const hair = await sanityClient.fetch(`*[_type == "service" && "Hair" in categories[]->title]{
+    title,
+    "slug": slug.current
+  }`);
+
+  const esthetics = await sanityClient.fetch(`*[_type == "service" && "Esthetics" in categories[]->title]{
+    title,
+    "slug": slug.current
+  }`);
+
   
   const hero = await sanityClient.fetch(GET_HERO);
   const advantage = await sanityClient.fetch(GET_ADVANTAGE);
 
   return {
     props: {
+      beauty,
+      hair,
+      esthetics,
       property,
       category,
       hero,

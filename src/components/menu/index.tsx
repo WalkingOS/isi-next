@@ -13,20 +13,55 @@ import { useEffect, useState } from 'react';
 //   createClient
 // } from "next-sanity";
 
-interface Item {
+export interface IMenuItem {
   title: string;
   slug?: string;
-  items?: Item[];
+  items?: IMenuItem[];
 }
 
-export const RenderItems = ({items}: {items: Item[]}) => {
+const RenderItems = ({beautyItems, hairItems, estheticsItems}) => {
+
+  const collapseItems:IMenuItem[] = [
+    {
+      title: "Behandlungen",
+      items: [
+        {
+          title: "Beauty",
+          items: beautyItems
+        },
+        {
+          title: "Hair",
+          items: hairItems
+        },
+        {
+          title: "Esthetics",
+          items: estheticsItems
+        }
+      ]
+    },
+    {
+      title: "Preise",
+    },
+    {
+      title: "Über Uns",
+    },
+    {
+      title: "Kontakt",
+    },
+    {
+      title: "Datenschutz",
+    },
+    {
+      title: "Impressum",
+    },
+  ];
+
   return (
     <div className='flex gap-5 flex-col'>
-      {items.map((item) => {
-        if (item.items && item.items?.length) {
+      {collapseItems?.map((item) => {
+        if (item.items && item.items.length) {
           return (
             <>
-            
             <TreeView
               className="text-white"
               aria-label=""
@@ -44,7 +79,7 @@ export const RenderItems = ({items}: {items: Item[]}) => {
                             return (
                               <>
                                 <li>
-                                  <a className="py-1 pl-4 block hover:bg-[#0000000a]" href={i.slug}>{i.title}</a>
+                                  <Link className="py-1 pl-4 block hover:bg-[#0000000a]" href={"/" + it.title.toLowerCase() + "/" + i.slug}>{i.title}</Link>
                                 </li>
                               </>
                             );
@@ -61,7 +96,7 @@ export const RenderItems = ({items}: {items: Item[]}) => {
         } else {
           return (
             <>
-              <a  className="px-3 text-white font-bold text-[1.2rem] hover:bg-[#0000000a]" href={item.title}>{item.title}</a>
+              <Link  className="px-3 text-white font-bold text-[1.2rem] hover:bg-[#0000000a]" href={"/" + (item.title === "Über Uns" ? "ueber-uns" : item.title?.toLowerCase())}>{item.title}</Link>
             </>
           );
         }
@@ -70,67 +105,13 @@ export const RenderItems = ({items}: {items: Item[]}) => {
   );
 };
 
-    const collapseItems:Item[] = [
-      {
-        title: "Behandlungen",
+type IMenu = {
+  beautyItems: IMenuItem[];
+  hairItems: IMenuItem[];
+  estheticsItems: IMenuItem[]
+};
 
-        items: [
-          {
-            title: "beauty",
-            items: [
-              {
-                title: "aaa",
-                slug: "test"
-              },
-              {
-                title: "bbb",
-                slug: "test"
-              }
-            ]
-          },
-          {
-            title: "Hair",
-            items: [
-              {
-                title: "aaa",
-                slug: "test"
-              },
-              {
-                title: "bbb",
-                slug: "test"
-              }
-            ]
-          },
-          {
-            title: "Esthetics",
-            items: [
-              {
-                title: "ccc",
-                slug: "test"
-              },
-              {
-                title: "ddd",
-                slug: "test"
-              }
-            ]
-          }
-        ]
-      },
-      {
-        title: "Preise",
-      },
-      {
-        title: "Preise",
-      },
-      {
-        title: "Preise",
-      },
-      {
-        title: "Preise",
-      },
-    ];
-
-export const Menu= () => {
+export const Menu = (props: IMenu) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const [navVisible, setNavVisible] = useState(true);
@@ -148,6 +129,7 @@ export const Menu= () => {
     };
   }, [isOpen]);
 
+  
   useEffect(() => {
 
     const handleScroll = () => {
@@ -187,13 +169,12 @@ export const Menu= () => {
         </button>
       </div>
       <div className={`overflow-auto fixed bg-isi-light z-[30] pt-[10em] px-8 md:px-10 h-[100vh] w-[100vw] md:w-[50vw] left-0 translate-x-[100vw] md:translate-x-[200%] ease-in-out duration-300 bg-opacity-50 backdrop-blur-lg drop-shadow-md opacity-0 ${isOpen ? 'opacity-100 translate-x-[0vw] md:translate-x-[100%]' : ''}`}>
-        <RenderItems items={collapseItems} />
+        <RenderItems beautyItems={props.beautyItems} hairItems={props.hairItems} estheticsItems={props.estheticsItems} />
       </div>
       {
         isOpen && <div onClick={() => setIsOpen(false)} className={`ease-in duration-300 opacity-0 bg-opacity-10 backdrop-blur-sm drop-shadow-md overflow-auto fixed bg-isi-dark bg-opacity-10 h-[100vh] w-[100vw] top-0 left-0 right-0 bottom-0 ${isOpen ? 'opacity-100 z-10' : ''}`}></div>
       }
     </nav>
-
   )
 }
 

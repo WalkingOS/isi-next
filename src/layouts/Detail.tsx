@@ -5,7 +5,7 @@ import type { ReactNode } from 'react';
 
 import { AppConfig } from '@/utils/AppConfig';
 import { Footer } from '@/components/footer';
-import {Menu} from '@/components/menu';
+import {IMenuItem, Menu} from '@/components/menu';
 
 type IMainProps = {
   meta: {
@@ -14,6 +14,9 @@ type IMainProps = {
     canonical?: string;
   };
   children: ReactNode;
+  beautyItems: IMenuItem[];
+  hairItems: IMenuItem[];
+  estheticsItems: IMenuItem[]
 };
 
 const Detail = (props: IMainProps) => {
@@ -64,7 +67,7 @@ return (
           site_name: AppConfig.site_name,
         }}
     />
-    <Menu />
+    <Menu beautyItems={props.beautyItems} hairItems={props.hairItems} estheticsItems={props.estheticsItems} />
     <div className="w-full antialiased">
       <div className="">
         <div className="content text-xl">{props.children}</div>

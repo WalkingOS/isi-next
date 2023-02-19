@@ -1,8 +1,9 @@
 
 interface IAdvantage {
   title: string;
-  subtitle: string;
-  number:number;
+  subtitle?: string;
+  description: string;
+  number?:number;
 }
 
 
