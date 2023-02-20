@@ -1,3 +1,4 @@
+import Link from "next/link"
 
 
 export const Footer = ({appconfig}) => {
@@ -36,9 +37,9 @@ export const Footer = ({appconfig}) => {
         <div className='flex flex-col sm:flex-row items-center justify-between border-t border-white py-8'>
           © Copyright {new Date().getFullYear()} {appconfig}.
           <ul className="flex flex-wrap">
-            <li className="self-center border-r border-white px-2"><a href="/impressum">Impressum</a></li>
-            <li className="self-center border-r border-white px-2"><a href="/datenschutz">Datenschutz</a></li>
-            <li className="self-center pl-2"><a href="/kontakt">Kontakt</a></li>
+            <li className="self-center border-r border-white px-2"><Link href="/impressum">Impressum</Link></li>
+            <li className="self-center border-r border-white px-2"><Link href="/datenschutz">Datenschutz</Link></li>
+            <li className="self-center pl-2"><Link href="/kontakt">Kontakt</Link></li>
           </ul>
         </div>
  
