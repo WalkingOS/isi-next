@@ -8,13 +8,13 @@ import { faCoffee } from '@fortawesome/free-solid-svg-icons'
 
 import React from 'react';
 
-import { Main } from '@/layouts/Main';
+import { Detail } from '@/layouts/Detail';
 // import { MDXRemote } from 'next-mdx-remote';
 
-export default function BeautyService({beauty}) {
+export default function BeautyService({beautyService, beauty, hair, esthetics}) {
   return (
-    <Main meta={{title: 'title', description: 'description'}}>
-      <h1 className="font-bold">{beauty.title}</h1>
+    <Detail beautyItems={beauty} hairItems={hair} estheticsItems={esthetics} meta={{title: 'title', description: 'description'}}>
+      <h1 className="font-bold">{beautyService.title}</h1>
      <p className="text-xs">
        <FontAwesomeIcon  icon={faCoffee} size="1x" />
      </p>
@@ -23,7 +23,7 @@ export default function BeautyService({beauty}) {
 afsdfasdf</p>
        fasdf
      </div>
-    </Main>
+    </Detail>
   );
 }
 
@@ -41,14 +41,33 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps = async ({ params }) => {
   const GET_SINGLE_SERVICE = '*[_type == "service" && slug.current == $slug][0]'
 
-  const beauty = await sanityClient.fetch(GET_SINGLE_SERVICE,{
+  const beautyService = await sanityClient.fetch(GET_SINGLE_SERVICE,{
       slug: params.slug,
     }
   );
 
+  const beauty = await sanityClient.fetch(`*[_type == "service" && "Beauty" in categories[]->title]{
+    title,
+    "slug": slug.current
+  }`);
+
+  const hair = await sanityClient.fetch(`*[_type == "service" && "Hair" in categories[]->title]{
+    title,
+    "slug": slug.current
+  }`);
+
+  const esthetics = await sanityClient.fetch(`*[_type == "service" && "Esthetics" in categories[]->title]{
+    title,
+    "slug": slug.current
+  }`);
+
+
   return {
     props: {
-      beauty
+      beauty,
+      hair,
+      esthetics,
+      beautyService
     }
   }
 }

@@ -1,5 +1,6 @@
 
 import { Main } from '@/layouts/Main';
+import { fetchMenu } from '@/utils/FetchMenu';
 
 export default function NotFound({beauty, hair, esthetics}) {
   return (
@@ -9,4 +10,8 @@ export default function NotFound({beauty, hair, esthetics}) {
       </section>
     </Main>
   );
+}
+
+export const getStaticProps = async () => {
+  return fetchMenu()
 }

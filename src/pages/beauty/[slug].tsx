@@ -4,8 +4,6 @@ import { sanityClient, urlFor } from "../../../sanity.js";
 import { GET_SERVICES } from "../../queries/queries";
 import { ImageOverlay } from "@/components/imageoverlay";
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCoffee } from '@fortawesome/free-solid-svg-icons'
 import Breadcrumbs from '@mui/material/Breadcrumbs';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import Link from 'next/link';
@@ -15,9 +13,9 @@ import React from 'react';
 import {Detail } from '@/layouts/Detail';
 // import { MDXRemote } from 'next-mdx-remote';
 
-export default function BeautyService({beauty}) {
+export default function BeautyService({beauty, hair, esthetics, beautyService}) {
   return (
-    <Detail meta={{title: 'title', description: 'description'}}>
+    <Detail beautyItems={beauty} hairItems={hair} estheticsItems={esthetics} meta={{title: 'title', description: 'description'}}>
     <div className="pb-[40vh]">
       <div className='mx-auto px-4 md:px-12 lg:px-24 fixed top-[15%] z-[-1]'>
           <h1 className="mb-2 leading-none text-white text-[43px] font-bold">
@@ -26,7 +24,7 @@ export default function BeautyService({beauty}) {
       </div>
 
       {beauty.mainImage && <div className="block w-full h-[68vh] fixed z-[-3]">
-      <ImageOverlay src={urlFor(beauty.mainImage).url()} />
+      <ImageOverlay src={urlFor(beautyService.mainImage).url()} />
       </div>}
     </div>
     <div className="bg-white pb-8 min-h-[16em] text-white text-sm text-black rounded-tr-[2em]">
@@ -40,12 +38,12 @@ export default function BeautyService({beauty}) {
           Beauty
         </Link>
         <span className="font-bold">
-          {beauty.title}
+          {beautyService.title}
         </span>
       </Breadcrumbs>
 
       <h2 className="mb-8 pt-8 leading-none text-[24px] text-center font-bold">
-        {beauty.subtitle}
+        {beautyService.subtitle}
       </h2>
       <p className="mb-6">
         {beauty.description}
@@ -53,7 +51,7 @@ export default function BeautyService({beauty}) {
 
       <div>
         {
-          beauty.body?.map(item => 
+          beautyService.body?.map(item => 
             item.children?.map(it => (
               it.text
             ))
@@ -81,14 +79,33 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps = async ({ params }) => {
   const GET_SINGLE_SERVICE = '*[_type == "service" && slug.current == $slug][0]'
 
-  const beauty = await sanityClient.fetch(GET_SINGLE_SERVICE,{
+  const beautyService = await sanityClient.fetch(GET_SINGLE_SERVICE,{
       slug: params.slug,
     }
   );
 
+  const beauty = await sanityClient.fetch(`*[_type == "service" && "Beauty" in categories[]->title]{
+    title,
+    "slug": slug.current
+  }`);
+
+  const hair = await sanityClient.fetch(`*[_type == "service" && "Hair" in categories[]->title]{
+    title,
+    "slug": slug.current
+  }`);
+
+  const esthetics = await sanityClient.fetch(`*[_type == "service" && "Esthetics" in categories[]->title]{
+    title,
+    "slug": slug.current
+  }`);
+
+
   return {
     props: {
-      beauty
+      beauty,
+      hair,
+      esthetics,
+      beautyService
     }
   }
 }
