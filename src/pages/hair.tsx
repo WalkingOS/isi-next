@@ -11,7 +11,7 @@ import { ImageOverlay } from "@/components/imageoverlay";
 import { Contact } from "@/components/contact";
 import { Breadcrumbs } from "@mui/material";
 
-const BeautyServices = ({services, category, beauty, hair, esthetics}) => (
+const HairServices = ({services, category, beauty, hair, esthetics}) => (
   
   <Detail meta={{title: 'title', description: 'description'}} beautyItems={beauty} hairItems={hair} estheticsItems={esthetics}>
     <div className="pb-[65vh]">
@@ -71,13 +71,13 @@ const BeautyServices = ({services, category, beauty, hair, esthetics}) => (
   </Detail>
 );
 
-export default BeautyServices;
+export default HairServices;
 
 export async function getStaticProps() {
 
-  const services = await sanityClient.fetch('*[_type == "service" && "Beauty" in categories[]->title]')
-  const category = await sanityClient.fetch(`*[_type == "category" && title=="Beauty"]`)
-  const beauty = await sanityClient.fetch(`*[_type == "service" && "Beauty" in categories[]->title]{
+  const services = await sanityClient.fetch('*[_type == "service" && "Hair" in categories[]->title]')
+  const category = await sanityClient.fetch(`*[_type == "category" && title=="Hair"]`)
+  const beauty = await sanityClient.fetch(`*[_type == "service" && "Hair" in categories[]->title]{
     title,
     "slug": slug.current
   }`);

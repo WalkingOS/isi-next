@@ -11,6 +11,7 @@ import Link from 'next/link';
 import React from 'react';
 
 import {Detail } from '@/layouts/Detail';
+import RichTextToReact from '@/components/richtext';
 // import { MDXRemote } from 'next-mdx-remote';
 
 export default function BeautyService({beauty, hair, esthetics, beautyService}) {
@@ -23,7 +24,7 @@ export default function BeautyService({beauty, hair, esthetics, beautyService}) 
           </h1>
       </div>
 
-      {beauty.mainImage && <div className="block w-full h-[68vh] fixed z-[-3]">
+      {beautyService.mainImage && <div className="block w-full h-[68vh] fixed z-[-3]">
       <ImageOverlay src={urlFor(beautyService.mainImage).url()} />
       </div>}
     </div>
@@ -50,13 +51,9 @@ export default function BeautyService({beauty, hair, esthetics, beautyService}) 
       </p>
 
       <div>
-        {
-          beautyService.body?.map(item => 
-            item.children?.map(it => (
-              it.text
-            ))
-          )
-        }
+        
+        <RichTextToReact data={beautyService.body} />
+        
       </div>
       </div>
 

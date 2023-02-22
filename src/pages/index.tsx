@@ -1,5 +1,7 @@
 import { Main } from '@/layouts/Main';
 import { sanityClient, urlFor } from "../../sanity.js";
+import { motion } from "framer-motion"
+
 
 import { GET_SERVICES, GET_CATEGORY } from "../queries/queries";
 import MuiButton from '@mui/material/Button';
@@ -20,8 +22,7 @@ import { useEffect, useRef, useState } from 'react';
 
 // import MuxPlayer from '@mux/mux-player-react'
 
-const Index = ({beauty, hair, esthetics, category, hero, advantage}) => {
-
+const Index = ({beauty, hair, esthetics, category, hero, advantage}) => {  
   const [domLoaded, setDomLoaded] = useState(false);
   const ref = useRef<null | HTMLDivElement>(null);
 
@@ -35,7 +36,7 @@ const Index = ({beauty, hair, esthetics, category, hero, advantage}) => {
   
   return (  
     <Main meta={{title: 'title', description: 'description'}} beautyItems={beauty} hairItems={hair} estheticsItems={esthetics}>
-      <div className="relative w-full h-screen mb-12">
+      <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} className="relative w-full h-screen mb-12">
         <div className='absolute top-1/4 max-w-[520px]'>
           <h1 className='mb-2 relative leading-none text-white text-[64px] lg:text-[124px] font-bold after:absolute after:content-[""] after:bg-isi after:w-1/2 lg:after:w-[60%] after:h-[7px] after:left-[-50px] lg:after:left-[-100px] lg:after:top-[105px] after:top-[55px]'>
             {hero.title}
@@ -46,7 +47,7 @@ const Index = ({beauty, hair, esthetics, category, hero, advantage}) => {
         <div>
           {/*<MuxPlayer playbackId={playbackId} metadata={{video_title: title}} />*/}
         </div>
-      </div>
+      </motion.div>
 
       <ImageOverlay fade src={urlFor(hero.mainImage).url()} /> 
     
@@ -57,7 +58,9 @@ const Index = ({beauty, hair, esthetics, category, hero, advantage}) => {
         <ul className="flex mx-auto max-w-[360px] gap-4 flex-col lg:flex-row lg:flex-row lg:max-w-full lg:gap-8 xl:gap-32 justify-center lg:justify-between">
           {
             category.map((c) => 
-              <li key={c.title} className="lg:w-[360px]">
+              <motion.li 
+                key={c.title} 
+                className="lg:w-[360px]">
                 <Card 
                   title={c.title} 
                   description={c.description} 
@@ -65,7 +68,7 @@ const Index = ({beauty, hair, esthetics, category, hero, advantage}) => {
                   src={urlFor(c.mainImage).url()}
                   alt={c.title}
                 />
-              </li>
+              </motion.li>
             )
           }
         </ul>
