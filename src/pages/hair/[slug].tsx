@@ -56,7 +56,7 @@ export const getStaticProps = async ({ params }) => {
     "slug": slug.current
   }`);
 
-  const esthetics = await sanityClient.fetch(`*[_type == "service" && "Esthetics" in categories[]->title]{
+  const esthetics = await sanityClient.fetch(`*[_type == "service" && "Hair" in categories[]->title]{
     title,
     "slug": slug.current
   }`);

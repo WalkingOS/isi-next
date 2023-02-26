@@ -132,7 +132,7 @@ const Index = ({beauty, hair, esthetics, category, hero, advantage}) => {
           }}
         >
           <SwiperSlide>
-            <div className='bg-white-100 px-8 pt-2 pb-5 relative block w-full min-h-[80px] rounded-xl shadow-lg'>
+            <div className='cursor-grab bg-white-100 px-8 pt-2 pb-5 relative block w-full min-h-[80px] rounded-xl shadow-lg'>
               <div className='block relative pt-12'>
                 <span className='text-isi text-[84px] absolute -top-4'>“</span>
               </div>
@@ -172,7 +172,7 @@ const Index = ({beauty, hair, esthetics, category, hero, advantage}) => {
         </Swiper>)}
       </section>
 
-      <div className='border-t-[1px] border-isi-dark'></div>
+      <hr className='bg-isi-dark h-[1.5px]'></hr>
 
       <section className='my-16'>
         <ul className='flex flex-wrap justify-between w-full '>

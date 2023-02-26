@@ -7,6 +7,8 @@ import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import TreeItem from '@mui/lab/TreeItem';
 import { useEffect, useState } from 'react';
+import { useContextValue } from '@/context/ContextProvider';
+import { ActionType } from '../types/context';
 // import { GetStaticProps } from 'next';
 
 // import {
@@ -64,10 +66,10 @@ const RenderItems = ({beautyItems, hairItems, estheticsItems}) => {
             <>
             <TreeView
               className="text-white"
-              aria-label=""
               defaultCollapseIcon={<KeyboardArrowUpIcon />}
               defaultExpandIcon={<ExpandMoreIcon />}
               sx={{ flexGrow: 1, overflowY: 'auto' }}
+              multiSelect={false}
             >
               <TreeItem nodeId={item.title} label={item.title}>
                 {item.items?.map((it) => {
@@ -79,7 +81,7 @@ const RenderItems = ({beautyItems, hairItems, estheticsItems}) => {
                             return (
                               <>
                                 <li>
-                                  <Link className="py-1 pl-4 block hover:bg-[#0000000a]" href={"/" + it.title.toLowerCase() + "/" + i.slug}>{i.title}</Link>
+                                  <Link className={`py-1 pl-4 block hover:bg-[#0000000a] active:bg-red-100`} href={"/" + it.title.toLowerCase() + "/" + i.slug}>{i.title}</Link>
                                 </li>
                               </>
                             );
@@ -161,14 +163,13 @@ export const Menu = (props: IMenu) => {
 
   return (
     <nav className={`ease-in duration-300 ${navVisible ? '' : 'opacity-0'}`}>
-      <div className="bg-isi bg-opacity-50 drop-shadow-md z-[300] mx-auto px-4 md:px-12 fixed top-0 px-3 py-3 z-40 w-screen max-w-full flex justify-between">
+      <div className="container w-full py-3 bg-isi bg-opacity-50 drop-shadow-md z-[300]  fixed top-0  z-40 flex justify-between">
         <Link className='text-white' href="/">ISI NOOR</Link>
-        <button className="relative" onClick={() => setIsOpen(!isOpen)}>
-           <MenuRoundedIcon className={`text-white ease-in-out duration-300 ${isOpen ? 'opacity-0'  : 'opacity-100'}`}/>
-           <CloseRoundedIcon className={`absolute left-0 md:-left-4 text-white ease-in-out duration-300 ${!isOpen ? 'opacity-0'  : 'opacity-100'}`}/>
+        <button aria-expanded={isOpen} className="relative h-6 w-6" onClick={() => setIsOpen(!isOpen)}>
+           {!isOpen ? <MenuRoundedIcon className="text-white ease-in-out duration-300" /> : <CloseRoundedIcon className={` text-white ease-in-out duration-300`}/>}
         </button>
       </div>
-      <div className={`overflow-auto fixed bg-isi-light z-[30] pt-[10em] px-8 md:px-10 h-[100vh] w-[100vw] md:w-[50vw] left-0 translate-x-[100vw] md:translate-x-[200%] ease-in-out duration-300 bg-opacity-50 backdrop-blur-lg drop-shadow-md opacity-0 ${isOpen ? 'opacity-100 translate-x-[0vw] md:translate-x-[100%]' : ''}`}>
+      <div role="dialog" className={`overflow-auto fixed bg-isi-light z-[30] pt-[10em] pb-14 px-8 md:px-10 h-[100vh] w-[100vw] md:w-[50vw] left-0 translate-x-[100vw] md:translate-x-[200%] ease-in-out duration-300 bg-opacity-50 backdrop-blur-lg drop-shadow-md opacity-0 ${isOpen ? 'opacity-100 translate-x-[0vw] md:translate-x-[100%]' : ''}`}>
         <RenderItems beautyItems={props.beautyItems} hairItems={props.hairItems} estheticsItems={props.estheticsItems} />
       </div>
       {

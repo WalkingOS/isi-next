@@ -5,9 +5,10 @@ config.autoAddCss = false
 import '../styles/global.scss';
 
 import type { AppProps } from 'next/app';
+import ContextProvider from '@/context/ContextProvider';
 
 const MyApp = ({ Component, pageProps }: AppProps) => (
-  <Component {...pageProps} />
+  <ContextProvider><Component {...pageProps} /></ContextProvider>
 );
 
 export default MyApp;
