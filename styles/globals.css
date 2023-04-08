@@ -1,0 +1,25 @@
+@tailwind base; /* Preflight will be injected here */
+@tailwind components;
+@tailwind utilities;
+
+
+html,
+Canvas {
+  background-color: #f1f1f1;
+}
+
+.container {
+  @apply w-full max-w-[100vw] mx-auto antialiased px-4 md:px-12 xl:px-[10rem];
+}
+
+input,
+textarea,
+button,
+select,
+a {
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+html,
+Canvas {
+  background-color: #f1f1f1;
+}
